@@ -65,7 +65,11 @@ def stations():
 
 @app.route("/api/v1.0/tobs")
 def tobs():
-    return "the end"
+    session = Session(engine)
+    temperatures = session.query(Measurement.date, Measurement.tobs).\
+    filter(Measurement.station == USC00519281).filter(Measurement.date > 8-23-2016).all()
+    session.close()
+    return jsonify(temperatures)
     
 ## Ran out of time.
 
